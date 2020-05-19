@@ -1,14 +1,17 @@
 # Redux
 
 * Link page Redux: [https://redux.js.org/][redux_page]
-* Link page CNDs: [https://cdnjs.com/][cdns_pages]
+* Link page CNDs: [https://cdnjs.com/][cdns_page]
+* Link page Webpack: [https://webpack.js.org/][webpack_page]
 
 
 [redux_page]:(https://redux.js.org/)
-[cdns_pages]:(https://cdnjs.com/)
+[cdns_page]:(https://cdnjs.com/)
+[webpack_page]:(https://webpack.js.org/)
 
+## Using _CDN_:
 
-`index.html` with _CDN_:
+`index.html`
 
 ```html
 <body>
@@ -18,7 +21,7 @@
 </body>
 ```
 
-# Install with npm
+## Install with _node_
 
 ```shell
 docker-compose run app npm install -S redux
@@ -28,7 +31,7 @@ aliases: i, isntall, add
 common options: [--save-prod|--save-dev|--save-optional] [--save-exact] [--no-save]
 ```
 
-`index.html` with _node_:
+`index.html`
 
 ```html
 <body>
@@ -57,4 +60,35 @@ node_modules
 │   └── ...
 └── ...
 ```
+
+## Install _webpack_
+
+```shell
+docker-compose run app npm install -S webpack webpack-cli
+```
+
+## Create `webpack.config.js` file
+
+This configuration uses the `./main.js` entry point, and generates the `./build/fixter.js` file.
+```javascript
+const path = require('path');
+
+module.exports = {
+  entry: "./main.js",
+  mode: "none",
+  output: {
+    path: path.join(__dirname, "build"),
+    filename: "fixter.js"
+  }
+}
+```
+
+`mode: [development|production|none]`
+
+run script with `npx` to not install it globally.
+```shell
+docker-compose run app npx webpack
+```
+
+
 
