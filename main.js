@@ -1,4 +1,5 @@
 // import * as Redux from 'redux';
+import { createStore } from 'redux';
 
 // nodes
 const input = document.getElementById('input')
@@ -40,7 +41,7 @@ const setListener = li => {
     if (event.target.textContent == 'X') {
       delete todos[key]
     } else {
-      obj = todos[key]
+      let obj = todos[key]
       obj = { text: obj.text, done: !obj.done }
       todos = {
         ...todos,
@@ -64,3 +65,31 @@ input.addEventListener('keydown', even => {
 
 // init
 drawTodos();
+
+// redux
+
+// reducer
+const todosReducer = (state={}, action) => {
+  switch (action.type) {
+    case 'ADD_TODO':
+      key = Object.keys(state).length
+      action.todo['id'] = key
+      return { ...state, [key]: action.todo }
+      break;
+    case 'UPDATE_TODO':
+      return { ...state, [action.todo.id]: action.todo }
+      break;
+    case 'DELETE_TODO':
+      delete state[action.todo.id];
+      return { ...state }
+      break;
+    default:
+      return state;
+  }
+};
+
+// store
+const store = createStore(todosReducer);
+
+console.log(store);
+
