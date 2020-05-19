@@ -90,5 +90,3 @@ run script with `npx` to not install it globally.
 docker-compose run app npx webpack
 ```
 
-
-
