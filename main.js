@@ -3,31 +3,64 @@
 // nodes
 const input = document.getElementById('input')
 const list = document.getElementById('list')
-const todos = {}
+let todos = {
+  0: {
+    text: 'Ir al cine',
+    done: false
+  },
+  1: {
+    text: 'Cenar',
+    done: true
+  },
+  2: {
+    text: 'Grabar',
+    done: false
+  }
+};
 
 // functions
 const drawTodos = () => {
   list.innerHTML = '';
-
   for (let key in todos) {
     const li = document.createElement('li');
-    const id = key;
+    li.id = key;
+    const classDone = todos[key].done ? 'done' : '';
     li.innerHTML = `
-      <span>${todos[key]}</span>
-      <span id="${id}">X</span>
+      <span class="${classDone}">${todos[key].text}</span>
+      <span data-action="delete">X</span>
     `;
+    setListener(li);
     list.appendChild(li);
   }
 }
+
+const setListener = li => {
+  li.addEventListener('click', even => {
+    const key = even.currentTarget.id;
+    if (event.target.textContent == 'X') {
+      delete todos[key]
+    } else {
+      obj = todos[key]
+      obj = { text: obj.text, done: !obj.done }
+      todos = {
+        ...todos,
+        [key]: obj
+      };
+    }
+    drawTodos();
+  });
+};
 
 // listeners
 input.addEventListener('keydown', even => {
   if (even.key === 'Enter') {
     const text = event.target.value;
     const id = Object.keys(todos).length;
-    todos[id] = text
+    todos[id] = { text, 'done': false };
 
     drawTodos()
   }
 })
 
+// init
+drawTodos();
