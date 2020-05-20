@@ -4,26 +4,12 @@ import { createStore } from 'redux';
 // nodes
 const input = document.getElementById('input')
 const list = document.getElementById('list')
-let todos = {
-  0: {
-    text: 'Ir al cine',
-    done: false
-  },
-  1: {
-    text: 'Cenar',
-    done: true
-  },
-  2: {
-    text: 'Grabar',
-    done: false
-  }
-};
 
 // functions
 const drawTodos = () => {
   list.innerHTML = '';
   //actualizar los todos antes de dibujar
-  todos = store.getState();
+  let todos = store.getState();
   for (let key in todos) {
     const li = document.createElement('li');
     li.id = key;
@@ -40,17 +26,21 @@ const drawTodos = () => {
 const setListener = li => {
   li.addEventListener('click', even => {
     const key = even.currentTarget.id;
+    const todos = store.getState();
+    let todo = todos[key];
     if (event.target.textContent == 'X') {
+      store.dispatch({
+        type: "DELETE_TODO",
+        todo
+      });
       delete todos[key]
     } else {
-      let obj = todos[key]
-      obj = { text: obj.text, done: !obj.done }
-      todos = {
-        ...todos,
-        [key]: obj
-      };
+      todo.done = !todo.done;
+      store.dispatch({
+        type: 'UPDATE_TODO',
+        todo
+      }); 
     }
-    drawTodos();
   });
 };
 
@@ -63,6 +53,7 @@ input.addEventListener('keydown', even => {
       type: "ADD_TODO",
       todo
     });
+    event.currentTarget.value = '';
   }
 });
 
