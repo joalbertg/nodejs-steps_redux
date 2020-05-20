@@ -24,7 +24,7 @@
 ## Install with _node_
 
 ```shell
-docker-compose run app npm install -S redux
+docker-compose run app npm install redux
 ```
 ```shell
 aliases: i, isntall, add
@@ -36,7 +36,7 @@ common options: [--save-prod|--save-dev|--save-optional] [--save-exact] [--no-sa
 ```html
 <body>
   <div id="root"></div>
-  <script src="./node_modules/redux/dist/redux.js"></script>
+  <script src="../node_modules/redux/dist/redux.js"></script>
   <script src="main.js"></script>
 </body>
 ```
@@ -64,17 +64,17 @@ node_modules
 ## Install _webpack_
 
 ```shell
-docker-compose run app npm install -S webpack webpack-cli
+docker-compose run app npm install webpack webpack-cli
 ```
 
 ## Create `webpack.config.js` file
 
-This configuration uses the `./main.js` entry point, and generates the `./build/fixter.js` file.
+This configuration uses the `./src/main.js` entry point, and generates the `./build/fixter.js` file.
 ```javascript
 const path = require('path');
 
 module.exports = {
-  entry: "./main.js",
+  entry: "./src/main.js",
   mode: "none",
   output: {
     path: path.join(__dirname, "build"),
@@ -87,6 +87,6 @@ module.exports = {
 
 run script with `npx` to not install it globally.
 ```shell
-docker-compose run app npx webpack
+docker-compose run app npx webpack --watch
 ```
 

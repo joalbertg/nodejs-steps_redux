@@ -1,15 +1,14 @@
-// import * as Redux from 'redux';
 import { createStore, combineReducers } from 'redux';
 
 // nodes
-const input = document.getElementById('input');
-const addEmail = document.getElementById('addEmail');
-const list = document.getElementById('list');
+const inTodo = document.getElementById('inTodo');
+const inEmail = document.getElementById('inEmail');
+const todosList = document.getElementById('todosList');
 const emailslist = document.getElementById('emailslist');
 
 // functions
 const drawTodos = () => {
-  list.innerHTML = '';
+  todosList.innerHTML = '';
   //actualizar los todos antes de dibujar
   let todos = store.getState().todos;
   for (let key in todos) {
@@ -21,7 +20,7 @@ const drawTodos = () => {
       <span>X</span>
     `;
     setListener(li);
-    list.appendChild(li);
+    todosList.appendChild(li);
   }
 }
 
@@ -77,7 +76,7 @@ const setEmailClickListener = li => {
 };
 
 // listeners
-input.addEventListener('keydown', even => {
+inTodo.addEventListener('keydown', even => {
   if (even.key === 'Enter') {
     const text = event.target.value;
     const todo = { text, done: false };
@@ -89,7 +88,7 @@ input.addEventListener('keydown', even => {
   }
 });
 
-addEmail.addEventListener('keydown', even => {
+inEmail.addEventListener('keydown', even => {
   if (even.key === 'Enter') {
     const email = even.target.value;
     store.dispatch({
