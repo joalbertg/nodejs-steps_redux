@@ -22,6 +22,8 @@ let todos = {
 // functions
 const drawTodos = () => {
   list.innerHTML = '';
+  //actualizar los todos antes de dibujar
+  todos = store.getState();
   for (let key in todos) {
     const li = document.createElement('li');
     li.id = key;
@@ -56,15 +58,13 @@ const setListener = li => {
 input.addEventListener('keydown', even => {
   if (even.key === 'Enter') {
     const text = event.target.value;
-    const id = Object.keys(todos).length;
-    todos[id] = { text, 'done': false };
-
-    drawTodos()
+    const todo = { text, done: false };
+    store.dispatch({
+      type: "ADD_TODO",
+      todo
+    });
   }
-})
-
-// init
-drawTodos();
+});
 
 // redux
 
@@ -72,7 +72,7 @@ drawTodos();
 const todosReducer = (state={}, action) => {
   switch (action.type) {
     case 'ADD_TODO':
-      key = Object.keys(state).length
+      const key = Object.keys(state).length
       action.todo['id'] = key
       return { ...state, [key]: action.todo }
       break;
@@ -89,7 +89,16 @@ const todosReducer = (state={}, action) => {
 };
 
 // store
-const store = createStore(todosReducer);
+const store = createStore(todosReducer, {
+  0: {
+    id: 0,
+    text: 'Ir al cine',
+    done: false
+  }
+ });
 
-console.log(store);
+store.subscribe(drawTodos);
+
+// init
+drawTodos();
 
