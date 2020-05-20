@@ -2,8 +2,10 @@
 import { createStore, combineReducers } from 'redux';
 
 // nodes
-const input = document.getElementById('input')
-const list = document.getElementById('list')
+const input = document.getElementById('input');
+const addEmail = document.getElementById('addEmail');
+const list = document.getElementById('list');
+const emailslist = document.getElementById('emailslist');
 
 // functions
 const drawTodos = () => {
@@ -16,19 +18,35 @@ const drawTodos = () => {
     const classDone = todos[key].done ? 'done' : '';
     li.innerHTML = `
       <span class="${classDone}">${todos[key].text}</span>
-      <span data-action="delete">X</span>
+      <span>X</span>
     `;
     setListener(li);
     list.appendChild(li);
   }
 }
 
+const drawEmails = () => {
+  emailsList.innerHTML = '';
+  //actualizamos los emails antes de dibujar
+  let emails = store.getState().emails;
+  for (let i in emails) {
+    const li = document.createElement('li');
+    li.id = i;
+    li.innerHTML = `
+      <span>${emails[i]}</span>
+      <span>X</span>
+    `;
+    setEmailClickListener(li);
+    emailsList.appendChild(li);
+  }
+};
+
 const setListener = li => {
   li.addEventListener('click', even => {
     const key = even.currentTarget.id;
     const todos = store.getState().todos;
     let todo = todos[key];
-    if (event.target.textContent == 'X') {
+    if (even.target.textContent == 'X') {
       store.dispatch({
         type: "DELETE_TODO",
         todo
@@ -44,6 +62,20 @@ const setListener = li => {
   });
 };
 
+const setEmailClickListener = li => {
+  li.addEventListener('click', even => {
+    const id = even.currentTarget.id;
+    const emails = store.getState().emails;
+    let email = emails[id];
+    if (even.target.textContent == 'X') {
+      store.dispatch({
+        type: 'DELETE_EMAIL',
+        email
+      });
+    }
+  });
+};
+
 // listeners
 input.addEventListener('keydown', even => {
   if (even.key === 'Enter') {
@@ -53,7 +85,18 @@ input.addEventListener('keydown', even => {
       type: "ADD_TODO",
       todo
     });
-    event.currentTarget.value = '';
+    even.currentTarget.value = '';
+  }
+});
+
+addEmail.addEventListener('keydown', even => {
+  if (even.key === 'Enter') {
+    const email = even.target.value;
+    store.dispatch({
+      type: "ADD_EMAIL",
+      email
+    });
+    even.currentTarget.value = '';
   }
 });
 
@@ -107,8 +150,12 @@ const store = createStore(rootReducer, {
   emails: ['joalbert@gonzalez']
  });
 
-store.subscribe(drawTodos);
+store.subscribe(() => {
+  drawTodos();
+  drawEmails();
+});
 
 // init
 drawTodos();
+drawEmails();
 
