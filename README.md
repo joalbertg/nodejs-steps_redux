@@ -4,10 +4,9 @@
 * Link page CNDs: [https://cdnjs.com/][cdns_page]
 * Link page Webpack: [https://webpack.js.org/][webpack_page]
 
-
-[redux_page]:(https://redux.js.org/)
-[cdns_page]:(https://cdnjs.com/)
-[webpack_page]:(https://webpack.js.org/)
+[redux_page]: https://redux.js.org/
+[cdns_page]: https://cdnjs.com/
+[webpack_page]: https://webpack.js.org/
 
 ## Using _CDN_:
 
@@ -67,7 +66,7 @@ node_modules
 docker-compose run app npm install webpack webpack-cli
 ```
 
-## Create `webpack.config.js` file
+## Create `webpack.config.js` file
 
 This configuration uses the `./src/main.js` entry point, and generates the `./build/fixter.js` file.
 ```javascript
