@@ -1,5 +1,5 @@
 // import * as Redux from 'redux';
-import { createStore } from 'redux';
+import { createStore, combineReducers } from 'redux';
 
 // nodes
 const input = document.getElementById('input')
@@ -9,7 +9,7 @@ const list = document.getElementById('list')
 const drawTodos = () => {
   list.innerHTML = '';
   //actualizar los todos antes de dibujar
-  let todos = store.getState();
+  let todos = store.getState().todos;
   for (let key in todos) {
     const li = document.createElement('li');
     li.id = key;
@@ -26,7 +26,7 @@ const drawTodos = () => {
 const setListener = li => {
   li.addEventListener('click', even => {
     const key = even.currentTarget.id;
-    const todos = store.getState();
+    const todos = store.getState().todos;
     let todo = todos[key];
     if (event.target.textContent == 'X') {
       store.dispatch({
@@ -57,9 +57,19 @@ input.addEventListener('keydown', even => {
   }
 });
 
-// redux
-
+// Redux
 // reducer
+const emailReducer = (state=[], action) => {
+  switch (action.type) {
+    case "ADD_EMAIL":
+      return [action.email, ...state]
+    case "DELETE_EMAIL":
+      return [...state.filter(mail => mail !== action.email)]
+    default:
+      return state;
+  }
+};
+
 const todosReducer = (state={}, action) => {
   switch (action.type) {
     case 'ADD_TODO':
@@ -79,13 +89,22 @@ const todosReducer = (state={}, action) => {
   }
 };
 
+// combinar los reducers
+const rootReducer = combineReducers({
+  todos: todosReducer,
+  emails: emailReducer
+});
+
 // store
-const store = createStore(todosReducer, {
-  0: {
-    id: 0,
-    text: 'Ir al cine',
-    done: false
-  }
+const store = createStore(rootReducer, {
+  todos: {
+    0: {
+      id: 0,
+      text: 'Ir al cine',
+      done: false
+    }
+  },
+  emails: ['joalbert@gonzalez']
  });
 
 store.subscribe(drawTodos);
