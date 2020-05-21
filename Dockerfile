@@ -19,6 +19,8 @@ RUN npm install
 
 COPY . .
 
+EXPOSE 8080
+
 # Start the main process.
 CMD ["node", "main.js"]
 

@@ -2,7 +2,7 @@ version: '3'
 services:
   app:
     build: .
-    command: sh -c "npx webpack --watch"
+    command: sh -c "npm run start:dev"
     volumes:
       - .:/myapp
     ports:

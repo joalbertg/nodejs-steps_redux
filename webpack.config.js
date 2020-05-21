@@ -5,10 +5,14 @@ const HtmlWebpackTags = require('html-webpack-tags-plugin');
 
 module.exports = {
   entry: "./src/main.js",
-  mode: "none",
+  mode: "development",
   output: {
     path: path.join(__dirname, "build"),
     filename: "fixter.js"
+  },
+  devServer: {
+    host: '0.0.0.0',
+    port: 8080
   },
   plugins: [
     new HtmlWebpack({

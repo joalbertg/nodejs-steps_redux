@@ -4,6 +4,7 @@
   "description": "Project with Redux",
   "main": "main.js",
   "scripts": {
+    "start:dev": "npx webpack-dev-server",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "keywords": [],
@@ -17,6 +18,7 @@
   "devDependencies": {
     "copy-webpack-plugin": "^6.0.1",
     "html-webpack-plugin": "^4.3.0",
-    "html-webpack-tags-plugin": "^2.0.17"
+    "html-webpack-tags-plugin": "^2.0.17",
+    "webpack-dev-server": "^3.11.0"
   }
 }
