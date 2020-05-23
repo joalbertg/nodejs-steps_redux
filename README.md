@@ -1,20 +1,22 @@
 # Redux
 
-* Link page Redux: [https://redux.js.org/][redux_page]
-* Link page CNDs: [https://cdnjs.com/][cdns_page]
-* Link page Webpack: [https://webpack.js.org/][webpack_page]
-* Link page webpack-dev-server: [https://github.com/webpack/webpack-dev-server][webpack_dev_server_page]
-* Link page html-webpack-plugin: [https://github.com/jantimon/html-webpack-plugin][html_webpack_plugin_page]
-* Link page style-loader: [https://github.com/webpack-contrib/style-loader][style_loader_page]
-* Link page css-loader: [https://github.com/webpack-contrib/css-loader][css_loader_page]
+* Link [Redux][redux]
+* Link [CNDs][cdns]
+* Link [Webpack][webpack]
+* Link [webpack-dev-server][webpack_dev_server]
+* Link [html-webpack-plugin][html_webpack_plugin]
+* ~~Link~~ [~~style-loader~~][style_loader]
+* Link [mini-css-extract-plugin][mini_css_extract_plugin]
+* Link [css-loader][css_loader]
 
-[redux_page]: https://redux.js.org/
-[cdns_page]: https://cdnjs.com/
-[webpack_page]: https://webpack.js.org/
-[webpack_dev_server_page]: https://github.com/webpack/webpack-dev-server
-[html_webpack_plugin_page]: https://github.com/jantimon/html-webpack-plugin
-[style_loader_page]: https://github.com/webpack-contrib/style-loader
-[css_loader_page]: https://github.com/webpack-contrib/css-loader
+[redux]: https://redux.js.org/
+[cdns]: https://cdnjs.com/
+[webpack]: https://webpack.js.org/
+[webpack_dev_server]: https://github.com/webpack/webpack-dev-server
+[html_webpack_plugin]: https://github.com/jantimon/html-webpack-plugin
+[style_loader]: https://github.com/webpack-contrib/style-loader
+[mini_css_extract_plugin]: https://github.com/webpack-contrib/mini-css-extract-plugin
+[css_loader]: https://github.com/webpack-contrib/css-loader
 
 ## Using _CDN_:
 
