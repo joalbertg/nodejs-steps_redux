@@ -3,10 +3,18 @@
 * Link page Redux: [https://redux.js.org/][redux_page]
 * Link page CNDs: [https://cdnjs.com/][cdns_page]
 * Link page Webpack: [https://webpack.js.org/][webpack_page]
+* Link page webpack-dev-server: [https://github.com/webpack/webpack-dev-server][webpack_dev_server_page]
+* Link page html-webpack-plugin: [https://github.com/jantimon/html-webpack-plugin][html_webpack_plugin_page]
+* Link page style-loader: [https://github.com/webpack-contrib/style-loader][style_loader_page]
+* Link page css-loader: [https://github.com/webpack-contrib/css-loader][css_loader_page]
 
 [redux_page]: https://redux.js.org/
 [cdns_page]: https://cdnjs.com/
 [webpack_page]: https://webpack.js.org/
+[webpack_dev_server_page]: https://github.com/webpack/webpack-dev-server
+[html_webpack_plugin_page]: https://github.com/jantimon/html-webpack-plugin
+[style_loader_page]: https://github.com/webpack-contrib/style-loader
+[css_loader_page]: https://github.com/webpack-contrib/css-loader
 
 ## Using _CDN_:
 
@@ -69,7 +77,7 @@ docker-compose run app npm install webpack webpack-cli
 ## Create `webpack.config.js` file
 
 This configuration uses the `./src/main.js` entry point, and generates the `./build/fixter.js` file.
-```javascript
+```json
 const path = require('path');
 
 module.exports = {
@@ -87,5 +95,78 @@ module.exports = {
 run script with `npx` to not install it globally.
 ```shell
 docker-compose run app npx webpack --watch
+```
+
+## Plugins
+
+```shell
+docker-compose run app npm install webpack-dev-server --save-dev
+docker-compose run app npm i --save-dev html-webpack-plugin
+```
+
+```json
+//...
+"scripts": {
+  "start:dev": "npx webpack-dev-server"
+}
+//...
+```
+
+```json
+/...
+const HtmlWebpack = require('html-webpack-plugin');
+
+  //...
+  devServer: {
+    host: '0.0.0.0',
+    port: 8080
+  },
+  //...
+}
+```
+
+> Note: `host: '0.0.0.0'` for running with docker.
+
+### docker-compose.yml
+
+> command: sh -c "npm run start:dev"
+
+```shell
+docker-compose up
+```
+
+## Loaders
+
+```shell
+docker-compose run app npm install --save-dev style-loader
+docker-compose run app npm install --save-dev css-loader
+docker-compose run app npm install --save-dev mini-css-extract-plugin
+```
+
+> Note: `style-loader` was replaced by `mini-css-extract-plugin`.
+
+### main.js
+> add `import './styles.css'`.
+
+```json
+  const MiniCssExtractPlugin = require('mini-css-extract-plugin');
+
+  //...devServer
+  module: {
+    rules: [{
+      test: /\.css$/,
+      use: [MiniCssExtractPlugin.loader, 'css-loader']
+    }]
+  },
+  plugins: [
+    new HtmlWebpack({
+      filename: 'index.html',
+      template: 'public/index.html'
+    }),
+    new MiniCssExtractPlugin({
+      filename: 'styles.css'
+    })
+  ]
+  //...
 ```
 

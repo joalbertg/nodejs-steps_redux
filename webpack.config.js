@@ -1,7 +1,6 @@
 const path = require('path');
 const HtmlWebpack = require('html-webpack-plugin');
-const copyWebpack = require('copy-webpack-plugin');
-const HtmlWebpackTags = require('html-webpack-tags-plugin');
+const MiniCssExtractPlugin = require('mini-css-extract-plugin');
 
 module.exports = {
   entry: "./src/main.js",
@@ -14,16 +13,19 @@ module.exports = {
     host: '0.0.0.0',
     port: 8080
   },
+  module: {
+    rules: [{
+      test: /\.css$/,
+      use: [MiniCssExtractPlugin.loader, 'css-loader']
+    }]
+  },
   plugins: [
     new HtmlWebpack({
       filename: 'index.html',
       template: 'public/index.html'
     }),
-    new copyWebpack({
-      patterns: [{ from: 'public/assets/', to: 'css/' }],
-    }),
-    new HtmlWebpackTags({
-      links: ['css/styles.css']
+    new MiniCssExtractPlugin({
+      filename: 'styles.css'
     })
   ]
 }

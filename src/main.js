@@ -1,5 +1,7 @@
 import { createStore, combineReducers } from 'redux';
 
+import './styles.css';
+
 // nodes
 const inTodo = document.getElementById('inTodo');
 const inEmail = document.getElementById('inEmail');
@@ -142,7 +144,7 @@ const store = createStore(rootReducer, {
   todos: {
     0: {
       id: 0,
-      text: 'Ir al cine',
+      text: 'Teach Redux',
       done: false
     }
   },
